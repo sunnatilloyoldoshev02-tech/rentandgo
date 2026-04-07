@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rent-and-Go | Mahsulotlar Katalogi</title>
+    <title>Rent-and-Go | Katalog</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         :root { --primary: #4e4cfd; --secondary: #f1911e; --dark: #1a1a2e; }
@@ -12,145 +12,192 @@
 
         /* HEADER */
         header { 
-            background: var(--primary); 
-            color: white; 
-            padding: 15px 30px; 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center;
-            position: sticky; top: 0; z-index: 100;
+            background: var(--primary); color: white; padding: 15px 30px; 
+            display: flex; justify-content: space-between; align-items: center;
+            position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
-
-        .auth-btns button {
-            padding: 8px 18px; border-radius: 20px; border: none; cursor: pointer; font-weight: bold; margin-left: 10px; transition: 0.3s;
-        }
+        .auth-btns button { padding: 8px 18px; border-radius: 20px; border: none; cursor: pointer; font-weight: bold; margin-left: 10px; }
         .login-btn { background: white; color: var(--primary); }
         .reg-btn { background: var(--secondary); color: white; }
-        .login-btn:hover { background: #eee; }
 
-        /* FILTER SECTION */
+        /* FILTER */
         .filter-section { display: flex; justify-content: center; gap: 10px; padding: 20px; background: white; }
-        .filter-btn { padding: 8px 20px; border: 2px solid var(--primary); background: white; color: var(--primary); border-radius: 30px; cursor: pointer; font-weight: bold; }
+        .filter-btn { padding: 8px 20px; border: 2px solid var(--primary); background: white; color: var(--primary); border-radius: 30px; cursor: pointer; font-weight: bold; transition: 0.3s; }
         .filter-btn.active { background: var(--primary); color: white; }
 
         /* GRID */
         .container { max-width: 1200px; margin: 20px auto; padding: 0 20px; }
-        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; }
-        .card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: 0.3s; }
-        .card:hover { transform: translateY(-5px); }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 25px; }
+        .card { background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.08); transition: 0.3s; }
+        .card:hover { transform: translateY(-10px); }
         .card img { width: 100%; height: 180px; object-fit: cover; }
-        .card-body { padding: 15px; }
-        .price { color: var(--primary); font-weight: bold; font-size: 1.1rem; margin: 10px 0; }
-        .rent-btn { width: 100%; padding: 10px; background: var(--primary); color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; }
+        .card-body { padding: 20px; }
+        .card-body h4 { margin-bottom: 10px; color: var(--dark); }
+        .price { color: var(--primary); font-weight: bold; margin-bottom: 15px; display: block; }
+        .rent-btn { width: 100%; padding: 12px; background: var(--primary); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; }
 
         /* MODAL */
-        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px); }
-        .modal-content { background: white; width: 90%; max-width: 400px; margin: 100px auto; padding: 25px; border-radius: 15px; position: relative; }
-        .close { position: absolute; right: 20px; top: 15px; cursor: pointer; font-size: 24px; color: #888; }
-        input, select { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ddd; border-radius: 6px; }
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.75); backdrop-filter: blur(5px); }
+        .modal-content { background: white; width: 90%; max-width: 450px; margin: 50px auto; padding: 30px; border-radius: 20px; position: relative; animation: slideDown 0.3s; }
+        @keyframes slideDown { from { transform: translateY(-50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .close { position: absolute; right: 20px; top: 15px; cursor: pointer; font-size: 28px; color: #aaa; }
+        input, select { width: 100%; padding: 12px; margin: 10px 0 20px 0; border: 1px solid #ddd; border-radius: 10px; outline: none; }
         
-        .google-btn { 
-            background: white; border: 1px solid #ddd; display: flex; align-items: center; justify-content: center; 
-            cursor: pointer; width: 100%; padding: 10px; border-radius: 8px; margin-top: 15px; font-weight: bold;
-        }
+        .google-btn { background: white; border: 1px solid #ddd; display: flex; align-items: center; justify-content: center; cursor: pointer; width: 100%; padding: 12px; border-radius: 10px; margin-top: 15px; font-weight: bold; }
         .google-btn img { width: 20px; margin-right: 10px; }
     </style>
 </head>
 <body>
 
 <header>
-    <div class="logo"><h2 style="cursor:pointer" onclick="location.href='index.html'">Rent-and-Go</h2></div>
-    <div class="auth-btns" id="authBox">
+    <div class="logo"><h2>Rent-and-Go</h2></div>
+    <div class="auth-btns" id="userArea">
         <button class="login-btn" onclick="openM('loginModal')">Kirish</button>
         <button class="reg-btn" onclick="openM('loginModal')">Ro'yxatdan o'tish</button>
     </div>
 </header>
 
 <div class="filter-section">
-    <button class="filter-btn active" onclick="render('all')">Hammasi</button>
-    <button class="filter-btn" onclick="render('foto')">Foto & Video</button>
-    <button class="filter-btn" onclick="render('it')">IT & Tech</button>
-    <button class="filter-btn" onclick="render('qurilish')">Qurilish</button>
+    <button class="filter-btn active" id="btn-all" onclick="updateFilter('all')">Hammasi</button>
+    <button class="filter-btn" id="btn-foto" onclick="updateFilter('foto')">Foto & Video</button>
+    <button class="filter-btn" id="btn-it" onclick="updateFilter('it')">IT & Tech</button>
+    <button class="filter-btn" id="btn-qurilish" onclick="updateFilter('qurilish')">Qurilish</button>
 </div>
 
 <div class="container">
-    <div class="product-grid" id="grid"></div>
+    <div class="product-grid" id="productGrid"></div>
 </div>
 
 <div id="loginModal" class="modal">
     <div class="modal-content">
         <span class="close" onclick="closeM('loginModal')">&times;</span>
-        <h3 style="text-align:center">Xush kelibsiz!</h3>
-        <input type="email" placeholder="Email">
-        <input type="password" placeholder="Parol">
-        <button class="rent-btn" onclick="loginAction('Foydalanuvchi')">Tizimga kirish</button>
-        <div class="google-btn" onclick="loginAction('Google User')">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"> Google orqali kirish
+        <h3 style="text-align:center; margin-bottom:20px;">Tizimga kirish</h3>
+        <input type="email" placeholder="Email manzilingiz">
+        <input type="password" placeholder="Parolingiz">
+        <button class="rent-btn" onclick="doLogin('Foydalanuvchi')">Kirish</button>
+        <div class="google-btn" onclick="doLogin('Google User')">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"> Google bilan kirish
         </div>
     </div>
 </div>
 
-<div id="bookModal" class="modal">
+<div id="bookingModal" class="modal">
     <div class="modal-content">
-        <span class="close" onclick="closeM('bookModal')">&times;</span>
-        <h3 id="pTitle" style="color:var(--primary); margin-bottom:15px;">Mahsulot nomi</h3>
+        <span class="close" onclick="closeM('bookingModal')">&times;</span>
+        <h3 id="itemTitle" style="color:var(--primary); margin-bottom:10px;">Mahsulot</h3>
+        <p id="itemDesc" style="font-size:0.9rem; color:#666; margin-bottom:20px;">Xususiyatlari haqida ma'lumot...</p>
         
         <label>Rangni tanlang:</label>
-        <select id="pColor">
-            <option>Qora (Standart)</option>
+        <select id="selColor">
+            <option>Standart Qora</option>
             <option>Kumushrang</option>
             <option>Oq</option>
         </select>
 
         <label>To'plam turi:</label>
-        <select id="pType">
+        <select id="selType">
             <option>Faqat uskuna</option>
-            <option>To'liq to'plam (aksessuarlar bilan)</option>
+            <option>To'liq (Aksessuarlar bilan)</option>
         </select>
 
         <label>Ijara muddati (kun):</label>
-        <input type="number" id="pDays" value="1" min="1">
+        <input type="number" id="selDays" value="1" min="1">
 
-        <button class="rent-btn" style="background:var(--secondary); margin-top:15px;" onclick="confirmB()">Band qilishni tasdiqlash</button>
+        <button class="rent-btn" style="background:var(--secondary);" onclick="confirmRent()">Tasdiqlash va Band qilish</button>
     </div>
 </div>
 
 <script>
-    let isLogged = false;
+    let loggedIn = false;
 
-    // MAHSULOTLAR (Jami 60 ta ma'lumot joyi)
-    const data = {
+    // 60 TA MAHSULOT BAZASI (20 tadan har biriga)
+    const products = {
         foto: [
-            { name: "Canon EOS R5", price: "450,000", img: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=500" },
-            { name: "Sony A7 IV", price: "400,000", img: "https://images.unsplash.com/photo-1510127034890-ba27508e9f1c?w=500" },
-            { name: "DJI Mavic 3 Pro", price: "600,000", img: "https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=500" },
-            // ... Bu yerda yana 17 ta foto qo'shiladi
+            { name: "Canon EOS R5", price: "450,000", spec: "8K Video, 45MP sensor, hayvonlarni avtofokus qilish.", img: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=500" },
+            { name: "Sony A7 IV", price: "400,000", spec: "33MP Full-frame, real-vaqtda ko'zni kuzatish.", img: "https://images.unsplash.com/photo-1510127034890-ba27508e9f1c?w=500" },
+            { name: "DJI Mavic 3 Pro", price: "600,000", spec: "4/3 CMOS Hasselblad kamera, 43 daqiqa parvoz.", img: "https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=500" },
+            { name: "GoPro Hero 12", price: "150,000", spec: "5.3K video, HyperSmooth 6.0 stabilizatsiyasi.", img: "https://images.unsplash.com/photo-1565538412225-d17b2b216659?w=500" },
+            { name: "Fujifilm X-T5", price: "320,000", spec: "40MP APS-C, retro dizayn, video uchun ideal.", img: "https://images.unsplash.com/photo-1514916726002-6e8499443a11?w=500" },
+            { name: "Nikon Z9", price: "550,000", spec: "Flagman kamera, professional sport tasvirlari uchun.", img: "https://images.unsplash.com/photo-1616423642331-db7ce40801a6?w=500" },
+            { name: "Insta360 X3", price: "110,000", spec: "360 darajali 5.7K video yozish imkoniyati.", img: "https://images.unsplash.com/photo-1607434472257-d9f8e57a643d?w=500" },
+            { name: "Blackmagic Pocket 6K", price: "380,000", spec: "Kino sifatidagi tasvir, RAW formatda yozish.", img: "https://images.unsplash.com/photo-1512790182412-b19e6d62bc39?w=500" },
+            { name: "Canon RF 70-200mm", price: "180,000", spec: "Professional tele-obyektiv, portretlar uchun.", img: "https://images.unsplash.com/photo-1617005470382-75a45233633d?w=500" },
+            { name: "Zhiyun Crane 3S", price: "120,000", spec: "Og'ir kameralar uchun professional stabilizator.", img: "https://images.unsplash.com/photo-1589139011550-2b13e0048455?w=500" },
+            { name: "Aputure 600d Pro", price: "250,000", spec: "Eng kuchli studiya chirog'i, 600W quvvat.", img: "https://images.unsplash.com/photo-1590012357758-09d387bac740?w=500" },
+            { name: "Sennheiser AVX", price: "90,000", spec: "Simsiz mikrafon to'plami, toza ovoz.", img: "https://images.unsplash.com/photo-1589903308914-15902bad5a0d?w=500" },
+            { name: "Panasonic GH6", price: "300,000", spec: "Video bloggerlar uchun eng yaxshi tanlov.", img: "https://images.unsplash.com/photo-1620674156044-52b711f29704?w=500" },
+            { name: "Atomos Ninja V", price: "70,000", spec: "Kamera uchun monitor va rekorder.", img: "https://images.unsplash.com/photo-1551816230-ef5deaed4a26?w=500" },
+            { name: "Sigma 85mm Art", price: "100,000", spec: "f/1.4 diafragma, ajoyib bokeh.", img: "https://images.unsplash.com/photo-1495707902641-75cac588d2e9?w=500" },
+            { name: "Manfrotto Tripod", price: "50,000", spec: "Video uchun silliq gidravlik shtativ.", img: "https://images.unsplash.com/photo-1505739991561-7698b846c205?w=500" },
+            { name: "DJI Ronin RS3", price: "130,000", spec: "Yengil va aqlli stabilizator.", img: "https://images.unsplash.com/photo-1586733230302-698e4d07d1a5?w=500" },
+            { name: "Hollyland Mars 400s", price: "85,000", spec: "Simsiz video uzatish moslamasi.", img: "https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=500" },
+            { name: "Sony FE 24-70mm GM", price: "150,000", spec: "Universal va o'ta sifatli obyektiv.", img: "https://images.unsplash.com/photo-1511210816053-61a86847c118?w=500" },
+            { name: "Sandisk 512GB Cfast", price: "40,000", spec: "Tezkor xotira kartasi, 4K/8K uchun.", img: "https://images.unsplash.com/photo-1547119957-637f8679db1e?w=500" }
         ],
         it: [
-            { name: "MacBook Pro M3 Max", price: "550,000", img: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=500" },
-            { name: "ASUS ROG Strix G16", price: "350,000", img: "https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?w=500" },
-            // ... Bu yerda yana 18 ta IT mahsulot qo'shiladi
+            { name: "MacBook Pro M3 Max", price: "500,000", spec: "128GB RAM, 2TB SSD. Montaj uchun maxluq.", img: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=500" },
+            { name: "ASUS ROG Strix G18", price: "350,000", spec: "RTX 4080, 240Hz ekran. O'yinlar uchun.", img: "https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?w=500" },
+            { name: "iPad Pro M2 12.9", price: "180,000", spec: "Liquid Retina XDR, Apple Pencil bilan.", img: "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=500" },
+            { name: "Dell XPS 15", price: "280,000", spec: "Dizaynerlar uchun eng yaxshi Windows laptop.", img: "https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=500" },
+            { name: "Samsung Tab S9 Ultra", price: "140,000", spec: "Ulkan OLED ekran, multimediya uchun.", img: "https://images.unsplash.com/photo-1611078489935-0cb964de46d6?w=500" },
+            { name: "Valve Steam Deck", price: "90,000", spec: "Portativ o'yin konsoli, 512GB OLED.", img: "https://images.unsplash.com/photo-1635341513220-4286134f553a?w=500" },
+            { name: "Epson 4K Proyektor", price: "300,000", spec: "Uy kinoteatri uchun professional proyektor.", img: "https://images.unsplash.com/photo-1535016120720-40c646bebbbc?w=500" },
+            { name: "Razer Blade 16", price: "380,000", spec: "RTX 4090 grafik kartali ingichka laptop.", img: "https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?w=500" },
+            { name: "Meta Quest 3", price: "120,000", spec: "VR/AR virtual olam ko'zoynagi.", img: "https://images.unsplash.com/photo-1622979135225-d2ba269cf1ac?w=500" },
+            { name: "Samsung Odyssey G9", price: "200,000", spec: "49 dyuymli kavisli monitor.", img: "https://images.unsplash.com/photo-1552831388-6a0b3575b32a?w=500" },
+            { name: "Surface Laptop 5", price: "170,000", spec: "Elegant dizayn, ofis ishlari uchun.", img: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=500" },
+            { name: "Mac Studio M2", price: "450,000", spec: "Professional studiya kompyuteri.", img: "https://images.unsplash.com/photo-1636114673156-052a83459fc1?w=500" },
+            { name: "Wacom Cintiq Pro", price: "220,000", spec: "Raqamli chizish uchun monitor-planshet.", img: "https://images.unsplash.com/photo-1587302912306-cf1ed9c33146?w=500" },
+            { name: "Alienware m18", price: "340,000", spec: "Eng yuqori quvvatli o'yin stansiyasi.", img: "https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=500" },
+            { name: "HP Victus 15", price: "120,000", spec: "Hamyonbop va sifatli o'yin noutbuki.", img: "https://images.unsplash.com/photo-1603302576837-37561b2e2302?w=500" },
+            { name: "Lenovo Legion 5", price: "210,000", spec: "Ishonchli va sovuq ishlaydigan laptop.", img: "https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?w=500" },
+            { name: "Logitech G Pro To'plam", price: "50,000", spec: "Professional sichqoncha va klaviatura.", img: "https://images.unsplash.com/photo-1587202372775-e229f172b9d7?w=500" },
+            { name: "Cisco Router Set", price: "100,000", spec: "Konferensiyalar uchun barqaror internet.", img: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=500" },
+            { name: "Synology NAS 8TB", price: "80,000", spec: "Ma'lumotlarni saqlash serveri.", img: "https://images.unsplash.com/photo-1558494949-ef010cbdcc48?w=500" },
+            { name: "Apple Pro Display XDR", price: "400,000", spec: "6K professional monitor.", img: "https://images.unsplash.com/photo-1547119957-637f8679db1e?w=500" }
         ],
         qurilish: [
-            { name: "Makita HR2470", price: "70,000", img: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=500" },
-            { name: "Bosch Professional", price: "50,000", img: "https://images.unsplash.com/photo-1572981779307-38b8cabb2407?w=500" },
-            // ... Bu yerda yana 18 ta uskuna qo'shiladi
+            { name: "Makita HR2470", price: "45,000", spec: "Beton teshish uchun perforator.", img: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=500" },
+            { name: "Bosch GWS 900", price: "35,000", spec: "Lazerli kesish mashinasi (bolgarka).", img: "https://images.unsplash.com/photo-1530124560676-46399e697da0?w=500" },
+            { name: "Karcher K7", price: "120,000", spec: "Yuqori bosimli yuvish apparati.", img: "https://images.unsplash.com/photo-1520333789090-1afc82db536a?w=500" },
+            { name: "DeWalt Shurupovort", price: "40,000", spec: "18V kuchli akumulyatorli drel.", img: "https://images.unsplash.com/photo-1572981779307-38b8cabb2407?w=500" },
+            { name: "Stihl MS 180", price: "60,000", spec: "Benzinli arra, daraxtlar uchun.", img: "https://images.unsplash.com/photo-1590235222482-628d0979606d?w=500" },
+            { name: "Hilti TE 70", price: "160,000", spec: "Og'ir betonlarni buzish uchun.", img: "https://images.unsplash.com/photo-1581244277943-fe4a9c777189?w=500" },
+            { name: "Honda Generator", price: "90,000", spec: "3.5 kVt benzinli tok manbai.", img: "https://images.unsplash.com/photo-1590846083693-f25f753eeacd?w=500" },
+            { name: "Lazerli Uroven", price: "30,000", spec: "360 darajali yashil lazer.", img: "https://images.unsplash.com/photo-1586762522814-727632662282?w=500" },
+            { name: "Invertor Svarka", price: "50,000", spec: "Yengil va ixcham payvandlash uskunasi.", img: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=500" },
+            { name: "Beton Qorishtirgich", price: "100,000", spec: "180 litrli elektr motorli miksher.", img: "https://images.unsplash.com/photo-1541888941257-2280d074b889?w=500" },
+            { name: "Shtroborez", price: "75,000", spec: "Devordan kanal ochish uchun.", img: "https://images.unsplash.com/photo-1534337621606-e3df5ee0e977?w=500" },
+            { name: "Gazonokosilka", price: "70,000", spec: "O't o'rish mashinasi, elektr.", img: "https://images.unsplash.com/photo-1592419044706-39796d40f98c?w=500" },
+            { name: "Sanoat Pylesosi", price: "55,000", spec: "Qurilish chiqindilari uchun kuchli changyutgich.", img: "https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?w=500" },
+            { name: "Alyuminiy Narvon", price: "25,000", spec: "12 metrlik yig'iladigan narvon.", img: "https://images.unsplash.com/photo-1595844730298-b9f1ff9b5993?w=500" },
+            { name: "Kompressor 50L", price: "65,000", spec: "Havo haydash va bo'yash uchun.", img: "https://images.unsplash.com/photo-1585351449247-9e59049e8f4c?w=500" },
+            { name: "Pnevmatik Bolg'a", price: "35,000", spec: "Mix qoqish uchun pnevmo-uskuna.", img: "https://images.unsplash.com/photo-1586864387417-f58fd4c5ad14?w=500" },
+            { name: "Parket Shlifovka", price: "130,000", spec: "Polni silliqlash mashinasi.", img: "https://images.unsplash.com/photo-1581141849291-1125c7b692b5?w=500" },
+            { name: "Vibrator beton uchun", price: "40,000", spec: "Betonni zichlash uchun uskuna.", img: "https://images.unsplash.com/photo-1517646287270-a5a9ca602e5c?w=500" },
+            { name: "Dizel Isitkich", price: "80,000", spec: "Katta ob'ektlarni isitish uchun.", img: "https://images.unsplash.com/photo-1591804245657-36e522959695?w=500" },
+            { name: "Trubakiblatgich", price: "20,000", spec: "Plastik quvurlarni payvandlash.", img: "https://images.unsplash.com/photo-1578330113524-7301c27f300c?w=500" }
         ]
     };
 
-    function render(cat) {
-        const grid = document.getElementById('grid');
+    function render(filter = 'all') {
+        const grid = document.getElementById('productGrid');
         grid.innerHTML = '';
-        let list = (cat === 'all') ? [...data.foto, ...data.it, ...data.qurilish] : data[cat];
-        
+        let list = [];
+        if(filter === 'all') {
+            list = [...products.foto, ...products.it, ...products.qurilish];
+        } else {
+            list = products[filter];
+        }
+
         list.forEach(item => {
             grid.innerHTML += `
                 <div class="card">
-                    <img src="${item.img}">
+                    <img src="${item.img}" alt="${item.name}">
                     <div class="card-body">
                         <h4>${item.name}</h4>
-                        <p class="price">${item.price} so'm / kun</p>
-                        <button class="rent-btn" onclick="startBooking('${item.name}')">Band qilish</button>
+                        <span class="price">${item.price} so'm / kun</span>
+                        <button class="rent-btn" onclick="openBookModal('${item.name}', '${item.spec}')">Band qilish</button>
                     </div>
                 </div>
             `;
@@ -160,28 +207,35 @@
     function openM(id) { document.getElementById(id).style.display = 'block'; }
     function closeM(id) { document.getElementById(id).style.display = 'none'; }
 
-    function loginAction(user) {
-        isLogged = true;
-        document.getElementById('authBox').innerHTML = `<span><i class="fas fa-user"></i> Salom, <b>${user}</b></span>`;
+    function doLogin(u) {
+        loggedIn = true;
+        document.getElementById('userArea').innerHTML = `<span style="font-weight:bold"><i class="fas fa-user-circle"></i> Salom, ${u}</span>`;
         closeM('loginModal');
-        alert("Tizimga muvaffaqiyatli kirdingiz!");
+        alert("Xush kelibsiz!");
     }
 
-    function startBooking(name) {
-        if(!isLogged) {
+    function openBookModal(name, spec) {
+        if(!loggedIn) {
             alert("Iltimos, avval tizimga kiring!");
             openM('loginModal');
         } else {
-            document.getElementById('pTitle').innerText = name;
-            openM('bookModal');
+            document.getElementById('itemTitle').innerText = name;
+            document.getElementById('itemDesc').innerText = "Xususiyatlari: " + spec;
+            openM('bookingModal');
         }
     }
 
-    function confirmB() {
-        const d = document.getElementById('pDays').value;
-        const c = document.getElementById('pColor').value;
-        alert(`Tasdiqlandi! ${d} kunga ${c} rangli uskuna band qilindi.`);
-        closeM('bookModal');
+    function updateFilter(cat) {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById('btn-' + cat).classList.add('active');
+        render(cat);
+    }
+
+    function confirmRent() {
+        const d = document.getElementById('selDays').value;
+        const c = document.getElementById('selColor').value;
+        alert(`Muvaffaqiyatli band qilindi!\nKun: ${d}\nRang: ${c}`);
+        closeM('bookingModal');
     }
 
     render('all');
