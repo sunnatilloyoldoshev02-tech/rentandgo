@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rent-and-Go | Professional Platforma</title>
+    
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+        body { font-family: 'Poppins', sans-serif; background: #0f0c29; color: #fff; overflow-x: hidden; }
+
+        /* Asosiy Banner */
+        header {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                        url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=2070') no-repeat center center/cover;
+        }
+
+        h1 { font-size: 4rem; color: #f1911e; letter-spacing: 5px; }
+        .btn-group { margin-top: 30px; display: flex; gap: 20px; justify-content: center; }
+        .btn { padding: 15px 35px; border-radius: 50px; text-decoration: none; font-weight: bold; transition: 0.4s; cursor: pointer; border: none; }
+        .btn-primary { background: #f1911e; color: white; }
+        .btn-outline { border: 2px solid #fff; color: #fff; background: transparent; }
+        .btn:hover { transform: scale(1.1); box-shadow: 0 0 20px #f1911e; }
+
+        /* Bo'limlar */
+        section { padding: 100px 20px; max-width: 1200px; margin: auto; }
+        h2.section-title { text-align: center; font-size: 2.5rem; margin-bottom: 50px; color: #f1911e; }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .card { background: rgba(255,255,255,0.05); padding: 40px; border-radius: 20px; border-left: 5px solid #f1911e; }
+
+        /* Jamoa bo'limi */
+        .team-grid { display: flex; justify-content: center; flex-wrap: wrap; gap: 40px; margin-top: 50px; }
+        .team-card { text-align: center; width: 250px; }
+        .team-img { width: 150px; height: 150px; border-radius: 50%; border: 3px solid #f1911e; object-fit: cover; margin-bottom: 15px; }
+        .team-card h3 { color: #f1911e; }
+        .team-card p { opacity: 0.8; font-size: 0.9rem; }
+
+        /* Modal */
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); }
+        .modal-content { background: #1a1a2e; width: 90%; max-width: 500px; margin: 10% auto; padding: 30px; border-radius: 20px; border: 1px solid #f1911e; }
+        input, select { width: 100%; padding: 12px; margin: 10px 0; border-radius: 10px; border: none; background: #252545; color: white; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div data-aos="zoom-out" data-aos-duration="1500">
+            <h1>RENT-AND-GO</h1>
+            <p style="font-size: 1.5rem;">Kerakli narsa – kerakli vaqtda</p>
+            <div class="btn-group">
+                <button onclick="openModal()" class="btn btn-primary">Investor bo'ling</button>
+                <a href="details.html" class="btn btn-outline">Batafsil</a>
+            </div>
+        </div>
+    </header>
+
+    <section>
+        <div class="grid">
+            <div class="card" data-aos="fade-right">
+                <h3><i class="fas fa-exclamation-triangle"></i> Muammo</h3>
+                <p>Qimmat uskunani bir marta ishlatish uchun sotib olish iqtisodiy jihatdan foydasiz va joy egallaydi.</p>
+            </div>
+            <div class="card" data-aos="fade-left">
+                <h3><i class="fas fa-check-circle"></i> Yechim</h3>
+                <p>Rent-and-Go orqali har qanday uskunani hamyonbop narxda ijaraga oling yoki o'z uskunangizni ijaraga berib daromad qiling.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="team">
+        <h2 class="section-title" data-aos="fade-up">Loyiha Mualliflari</h2>
+        <div class="team-grid">
+            <div class="team-card" data-aos="flip-left" data-aos-delay="100">
+                <img src="https://via.placeholder.com/150" class="team-img" alt="Sunnatillo">
+                <h3>Sunnatillo Yo'ldoshev</h3>
+                <p>Loyiha Asoschisi & Visionary</p>
+                <p style="font-size: 0.8rem; margin-top: 5px;">G'oya muallifi va strategik rivojlanish bo'yicha mas'ul.</p>
+            </div>
+            <div class="team-card" data-aos="flip-left" data-aos-delay="300">
+                <img src="https://via.placeholder.com/150" class="team-img" alt="Dasturchi">
+                <h3>Shuhrat Bahromjanov</h3>
+                <p>Lead Developer</p>
+                <p style="font-size: 0.8rem; margin-top: 5px;">Platformaning texnik qismi va xavfsizligi ustasi.</p>
+            </div>
+        </div>
+    </section>
+
+    <div id="investorModal" class="modal">
+        <div class="modal-content">
+            <h2 style="color:#f1911e">Investorlik So'rovi</h2>
+            <form id="investForm">
+                <input type="text" id="name" placeholder="Ismingiz" required>
+                <select id="amount">
+                    <option value="1000">$1,000 - $5,000</option>
+                    <option value="5000">$5,000 - $15,000</option>
+                    <option value="uzul">Uskuna bilan ulush qo'shish</option>
+                </select>
+                <select id="reason">
+                    <option value="share">Kompaniyada ulush olish</option>
+                    <option value="help">Startapni qo'llab-quvvatlash</option>
+                    <option value="partner">Hamkorlik qilish</option>
+                </select>
+                <button type="button" class="btn btn-primary" style="width:100%" onclick="sendMail()">Yuborish</button>
+                <button type="button" onclick="closeModal()" style="background:none; color:white; border:none; margin-top:10px; cursor:pointer;">Yopish</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 1000, // Animatsiya davomiyligi
+            once: false,    // Har safar tushganda animatsiya bo'lishi uchun
+        });
+
+        function openModal() { document.getElementById('investorModal').style.display = 'block'; }
+        function closeModal() { document.getElementById('investorModal').style.display = 'none'; }
+        
+        function sendMail() {
+            const name = document.getElementById('name').value;
+            const amount = document.getElementById('amount').value;
+            const reason = document.getElementById('reason').value;
+            window.location.href = `mailto:sunnatilloyoldoshev02@gmail.com?subject=Investor&body=Ism: ${name}%0AMiqdor: ${amount}%0AMaqsad: ${reason}`;
+        }
+    </script>
+</body>
+</html>
