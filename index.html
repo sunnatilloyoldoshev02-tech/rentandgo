@@ -43,10 +43,20 @@
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
         .card { background: rgba(255,255,255,0.05); padding: 40px; border-radius: 20px; border-left: 5px solid #f1911e; }
 
-        /* Jamoa */
-        .team-grid { display: flex; justify-content: center; flex-wrap: wrap; gap: 40px; margin-top: 50px; }
-        .team-card { text-align: center; width: 250px; }
-        .team-img { width: 150px; height: 150px; border-radius: 50%; border: 3px solid #f1911e; object-fit: cover; margin-bottom: 15px; }
+        /* Footer */
+        footer {
+            background: rgba(0,0,0,0.3);
+            padding: 50px 20px;
+            text-align: center;
+            border-top: 1px solid rgba(241, 145, 30, 0.3);
+            margin-top: 50px;
+        }
+        .footer-content h3 { color: #f1911e; margin-bottom: 15px; }
+        .footer-content p { opacity: 0.7; font-size: 0.9rem; margin-bottom: 20px; }
+        .social-links { display: flex; justify-content: center; gap: 20px; margin-bottom: 20px; }
+        .social-links a { color: #fff; font-size: 1.5rem; transition: 0.3s; }
+        .social-links a:hover { color: #f1911e; }
+        .copyright { font-size: 0.8rem; opacity: 0.5; }
 
         /* Modallar */
         .modal { display: none; position: fixed; z-index: 3000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); }
@@ -97,6 +107,20 @@
         </div>
     </section>
 
+    <footer>
+        <div class="footer-content" data-aos="fade-up">
+            <h3>RENT-AND-GO</h3>
+            <p>Ushbu platforma Sunnatillo Yo'ldoshev tomonidan 2026-yilda ishlab chiqilgan.</p>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-telegram"></i></a>
+                <a href="#"><i class="fab fa-github"></i></a>
+                <a href="#"><i class="fas fa-envelope"></i></a>
+            </div>
+            <p class="copyright">&copy; 2026 Barcha huquqlar himoyalangan. Dasturchi: Sunnatillo</p>
+        </div>
+    </footer>
+
     <div id="investorModal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('investorModal')">&times;</span>
@@ -115,12 +139,10 @@
             <input type="email" id="loginEmail" placeholder="Emailingizni kiriting" required>
             <input type="password" id="loginPass" placeholder="Parol kiriting" required>
             <button class="btn btn-primary" style="width:100%" onclick="loginAction()">Kirish</button>
-            
             <div class="google-login" onclick="googleLogin()">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_Logo.svg" alt="G">
                 Google orqali kirish
             </div>
-            
             <span class="modal-toggle" onclick="switchModal('loginModal', 'regModal')">Akkauntingiz yo'qmi? <b>Ro'yxatdan o'tish</b></span>
         </div>
     </div>
@@ -134,7 +156,6 @@
             <input type="password" id="regPass" placeholder="Parol kiriting" required>
             <input type="password" id="regConfirm" placeholder="Parolni tasdiqlang" required>
             <button class="btn btn-primary" style="width:100%" onclick="registerAction()">Register qilish</button>
-            
             <span class="modal-toggle" onclick="switchModal('regModal', 'loginModal')">Akkauntingiz bormi? <b>Kirish</b></span>
         </div>
     </div>
@@ -171,12 +192,11 @@
             openModal(openId);
         }
 
-        // Login mantiqi
         function loginAction() {
             const email = document.getElementById('loginEmail').value;
             const pass = document.getElementById('loginPass').value;
             if(email && pass) {
-                const nick = email.split('@')[0]; // Emailning boshini nik sifatida olish
+                const nick = email.split('@')[0];
                 localStorage.setItem('loggedUser', nick);
                 closeModal('loginModal');
                 updateNav();
@@ -184,7 +204,6 @@
             } else { alert("Iltimos, ma'lumotlarni to'ldiring!"); }
         }
 
-        // Register mantiqi
         function registerAction() {
             const nick = document.getElementById('regNick').value;
             const pass = document.getElementById('regPass').value;
