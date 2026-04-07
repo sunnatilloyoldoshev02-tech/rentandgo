@@ -60,7 +60,7 @@
 
         /* Modallar */
         .modal { display: none; position: fixed; z-index: 3000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); }
-        .modal-content { background: #1a1a2e; width: 95%; max-width: 450px; margin: 5% auto; padding: 40px; border-radius: 25px; border: 1px solid #f1911e; position: relative; text-align: center; }
+        .modal-content { background: #1a1a2e; width: 95%; max-width: 450px; margin: 5% auto; padding: 40px; border-radius: 25px; border: 1px solid #f1911e; position: relative; text-align: center; transition: 0.3s; }
         
         input, select, textarea { width: 100%; padding: 15px; margin: 10px 0; border-radius: 12px; border: 1px solid #333; background: #252545; color: white; outline: none; font-size: 1rem; }
         input:focus { border-color: #f1911e; }
@@ -112,16 +112,10 @@
             <h3>RENT-AND-GO</h3>
             <p>Ushbu platforma Sunnatillo Yo'ldoshev tomonidan 2026-yilda ishlab chiqilgan.</p>
             <div class="social-links">
-                <a href="https://www.instagram.com/darknexo_/" target="_blank" title="Instagram">
-                    <i class="fab fa-instagram"></i>
-                </a>
-                <a href="https://t.me/RentAndGo_Go" target="_blank" title="Telegram">
-                    <i class="fab fa-telegram"></i>
-                </a>
+                <a href="https://www.instagram.com/darknexo_/" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="https://t.me/RentAndGo_Go" target="_blank" title="Telegram"><i class="fab fa-telegram"></i></a>
                 <a href="#"><i class="fab fa-github"></i></a>
-                <a href="mailto:sunnatilloyoldoshev02@gmail.com" title="Email yuborish">
-                    <i class="fas fa-envelope"></i>
-                </a>
+                <a href="mailto:sunnatilloyoldoshev02@gmail.com" title="Email yuborish"><i class="fas fa-envelope"></i></a>
             </div>
             <p class="copyright">&copy; 2026 Barcha huquqlar himoyalangan. Dasturchi: Sunnatillo</p>
         </div>
@@ -138,14 +132,14 @@
     </div>
 
     <div id="loginModal" class="modal">
-        <div class="modal-content">
+        <div class="modal-content" id="modalMainContent">
             <span class="close-btn" onclick="closeModal('loginModal')">&times;</span>
             <h2 style="color:#f1911e">Login qilish</h2>
             <p style="margin-bottom: 20px; opacity: 0.7;">Tizimga kirish uchun ma'lumotlarni kiriting</p>
             <input type="email" id="loginEmail" placeholder="Emailingizni kiriting" required>
             <input type="password" id="loginPass" placeholder="Parol kiriting" required>
             <button class="btn btn-primary" style="width:100%" onclick="loginAction()">Kirish</button>
-            <div class="google-login" onclick="googleLogin()">
+            <div class="google-login" onclick="showGoogleInterface()">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_Logo.svg" alt="G">
                 Google orqali kirish
             </div>
@@ -198,6 +192,42 @@
             openModal(openId);
         }
 
+        function showGoogleInterface() {
+            const modalContent = document.getElementById('modalMainContent');
+            modalContent.innerHTML = `
+                <span class="close-btn" onclick="location.reload()">&times;</span>
+                <div style="text-align: center; padding: 10px;">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" width="90" style="margin-bottom: 20px;">
+                    <h2 style="color: white; margin-bottom: 5px; font-weight: 500;">Kirish</h2>
+                    <p style="color: white; margin-bottom: 25px; opacity: 0.9;">Google hisobingizdan foydalaning</p>
+                    
+                    <div id="googleEmailStep">
+                        <input type="email" id="gEmail" placeholder="Elektron pochta yoki telefon" 
+                               style="background: transparent; border: 1px solid #5f6368; color: white;">
+                        <p style="color: #8ab4f8; text-align: left; font-size: 0.85rem; margin: 10px 0; cursor: pointer; font-weight: 500;">Elektron pochtangizni unutdingizmi?</p>
+                        <div style="margin-top: 40px; display: flex; justify-content: space-between; align-items: center;">
+                            <span style="color: #8ab4f8; cursor: pointer; font-weight: 500; font-size: 0.9rem;">Hisob yaratish</span>
+                            <button class="btn btn-primary" style="padding: 8px 20px; font-size: 0.9rem;" onclick="finalGoogleLogin()">Keyingisi</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function finalGoogleLogin() {
+            const email = document.getElementById('gEmail').value;
+            if(email) {
+                const nick = email.split('@')[0];
+                localStorage.setItem('loggedUser', nick);
+                closeModal('loginModal');
+                updateNav();
+                alert("Google orqali kirdingiz!");
+                setTimeout(() => { location.reload(); }, 500);
+            } else {
+                alert("Iltimos, pochtangizni kiriting!");
+            }
+        }
+
         function loginAction() {
             const email = document.getElementById('loginEmail').value;
             const pass = document.getElementById('loginPass').value;
@@ -222,13 +252,6 @@
             } else { alert("Parollar mos emas yoki maydonlar bo'sh!"); }
         }
 
-        function googleLogin() {
-            localStorage.setItem('loggedUser', 'Google_User');
-            closeModal('loginModal');
-            updateNav();
-            alert("Google orqali kirdingiz!");
-        }
-
         function logout() {
             localStorage.removeItem('loggedUser');
             updateNav();
@@ -247,13 +270,10 @@
             const amount = document.getElementById('investAmount').value;
             const note = document.getElementById('additionalNote').value;
             const user = localStorage.getItem('loggedUser');
-
             if(!amount || !note) { alert("Iltimos, barcha maydonlarni to'ldiring!"); return; }
-
             const myEmail = "sunnatilloyoldoshev02@gmail.com";
             const subject = "Yangi Investor So'rovi - " + user;
             const body = `Salom Sunnatillo,%0A%0AMen Rent-and-Go loyihasiga investitsiya qilmoqchiman.%0A%0AInvestitsiya miqdori: $${amount}%0AXabar: ${note}%0A%0AHurmat bilan, ${user}`;
-
             window.location.href = `mailto:${myEmail}?subject=${subject}&body=${body}`;
             closeModal('investorModal');
         }
