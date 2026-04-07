@@ -85,23 +85,43 @@
 </div>
 
 <script>
-    const items = [
-        // Foto & Video
-        { name: "Canon EOS R5", price: 450000, cat: "Foto", img: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=400" },
-        { name: "Sony A7 IV", price: 400000, cat: "Foto", img: "https://images.unsplash.com/photo-1516724562728-afc824a36e84?w=400" },
-        { name: "DJI Mavic 3 Pro", price: 600000, cat: "Foto", img: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=400" },
-        { name: "GoPro Hero 12", price: 150000, cat: "Foto", img: "https://images.unsplash.com/photo-1526170315873-3a921219a730?w=400" },
-        { name: "Insta360 X3", price: 120000, cat: "Foto", img: "https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=400" },
-        // IT & Tech
-        { name: "MacBook Pro M3 Max", price: 550000, cat: "IT", img: "https://images.unsplash.com/photo-1517336712461-481bf771df49?w=400" },
-        { name: "ASUS ROG Strix G16", price: 350000, cat: "IT", img: "https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=400" },
-        { name: "iPad Pro M2", price: 200000, cat: "IT", img: "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=400" },
-        { name: "Sony WH-1000XM5", price: 80000, cat: "IT", img: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400" },
-        // Qurilish
-        { name: "Makita HR2470", price: 70000, cat: "Qurilish", img: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=400" },
-        { name: "Bosch Professional", price: 50000, cat: "Qurilish", img: "https://images.unsplash.com/photo-1572981779307-38b8cabb2407?w=400" }
-        // Jami 20+ ta mahsulotni shu yerga qo'shish mumkin
-    ];
+  const items = [
+    // FOTO & VIDEO (10 ta)
+    { name: "Canon EOS R5", price: 450000, cat: "Foto", img: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=400" },
+    { name: "Sony A7 IV", price: 400000, cat: "Foto", img: "https://images.unsplash.com/photo-1516724562728-afc824a36e84?w=400" },
+    { name: "DJI Mavic 3 Pro", price: 600000, cat: "Foto", img: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=400" },
+    { name: "GoPro Hero 12", price: 150000, cat: "Foto", img: "https://images.unsplash.com/photo-1526170315873-3a921219a730?w=400" },
+    { name: "Insta360 X3", price: 120000, cat: "Foto", img: "https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=400" },
+    { name: "Nikon Z9", price: 550000, cat: "Foto", img: "https://images.unsplash.com/photo-1616423641454-ec9505009035?w=400" },
+    { name: "Panasonic GH6", price: 300000, cat: "Foto", img: "https://images.unsplash.com/photo-1495707902641-75cac588d2e9?w=400" },
+    { name: "Blackmagic 6K", price: 500000, cat: "Foto", img: "https://images.unsplash.com/photo-1533152162573-d3ad9443040d?w=400" },
+    { name: "DJI Ronin RS3", price: 180000, cat: "Foto", img: "https://images.unsplash.com/photo-1500643114410-0937f374765d?w=400" },
+    { name: "Aputure 600d Pro", price: 250000, cat: "Foto", img: "https://images.unsplash.com/photo-1533106418989-88406c7cc8ca?w=400" },
+
+    // IT & TECH (10 ta)
+    { name: "MacBook Pro M3 Max", price: 550000, cat: "IT", img: "https://images.unsplash.com/photo-1517336712461-481bf771df49?w=400" },
+    { name: "ASUS ROG Strix G16", price: 350000, cat: "IT", img: "https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=400" },
+    { name: "iPad Pro M2", price: 200000, cat: "IT", img: "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=400" },
+    { name: "Sony WH-1000XM5", price: 80000, cat: "IT", img: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400" },
+    { name: "PlayStation 5 Slim", price: 120000, cat: "IT", img: "https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?w=400" },
+    { name: "iPhone 15 Pro Max", price: 250000, cat: "IT", img: "https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?w=400" },
+    { name: "Samsung Galaxy S24", price: 220000, cat: "IT", img: "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=400" },
+    { name: "Alienware 34 Monitor", price: 150000, cat: "IT", img: "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=400" },
+    { name: "Keychron Q1 Keyboard", price: 40000, cat: "IT", img: "https://images.unsplash.com/photo-1595225476474-87563907a212?w=400" },
+    { name: "Logitech MX Master 3", price: 30000, cat: "IT", img: "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=400" },
+
+    // QURILISH (10 ta)
+    { name: "Makita HR2470", price: 70000, cat: "Qurilish", img: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=400" },
+    { name: "Bosch Professional", price: 50000, cat: "Qurilish", img: "https://images.unsplash.com/photo-1572981779307-38b8cabb2407?w=400" },
+    { name: "DeWalt DCD771", price: 65000, cat: "Qurilish", img: "https://images.unsplash.com/photo-1530124560676-4cc27063532c?w=400" },
+    { name: "Hilti TE 70-ATC", price: 150000, cat: "Qurilish", img: "https://images.unsplash.com/photo-1581147036324-c17ac41dfa6c?w=400" },
+    { name: "Lazer Sath O'lchagich", price: 40000, cat: "Qurilish", img: "https://images.unsplash.com/photo-1586864387917-f58a4b82988d?w=400" },
+    { name: "Stihl MS 180 (Arra)", price: 90000, cat: "Qurilish", img: "https://images.unsplash.com/photo-1590235225167-15c8a23d3b75?w=400" },
+    { name: "Elektr Payvandlagich", price: 85000, cat: "Qurilish", img: "https://images.unsplash.com/photo-1534073828943-f801091bb270?w=400" },
+    { name: "Beton Aralashtirgich", price: 200000, cat: "Qurilish", img: "https://images.unsplash.com/photo-1541933224352-22418c50c72f?w=400" },
+    { name: "Karcher K5", price: 110000, cat: "Qurilish", img: "https://images.unsplash.com/photo-1520333789090-1afc82db536a?w=400" },
+    { name: "Kompressor 50L", price: 130000, cat: "Qurilish", img: "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=400" }
+];
 
     let selectedItem = null;
 
