@@ -20,15 +20,12 @@
         .auth-btn { padding: 8px 20px; border-radius: 20px; border: none; cursor: pointer; font-weight: bold; transition: 0.3s; }
         .login-btn { background: white; color: #0f0c29; }
         .reg-btn { background: #f1911e; color: white; }
-        .logout-btn { background: #ff4757; color: white; margin-left: 10px; }
+        .logout-btn { background: #ff4757; color: white; }
 
         /* Asosiy Banner */
         header {
             height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
+            display: flex; justify-content: center; align-items: center; text-align: center;
             background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
                         url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=2070') no-repeat center center/cover;
         }
@@ -40,28 +37,35 @@
         .btn-outline { border: 2px solid #fff; color: #fff; background: transparent; }
         .btn:hover { transform: scale(1.1); box-shadow: 0 0 20px #f1911e; }
 
-        /* Modallar Dizayni */
-        .modal { display: none; position: fixed; z-index: 3000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(5px); }
-        .modal-content { background: #1a1a2e; width: 95%; max-width: 400px; margin: 5% auto; padding: 35px; border-radius: 25px; border: 1px solid #f1911e; position: relative; text-align: center; }
+        /* Bo'limlar */
+        section { padding: 100px 20px; max-width: 1200px; margin: auto; }
+        h2.section-title { text-align: center; font-size: 2.5rem; margin-bottom: 50px; color: #f1911e; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .card { background: rgba(255,255,255,0.05); padding: 40px; border-radius: 20px; border-left: 5px solid #f1911e; }
+
+        /* Jamoa */
+        .team-grid { display: flex; justify-content: center; flex-wrap: wrap; gap: 40px; margin-top: 50px; }
+        .team-card { text-align: center; width: 250px; }
+        .team-img { width: 150px; height: 150px; border-radius: 50%; border: 3px solid #f1911e; object-fit: cover; margin-bottom: 15px; }
+
+        /* Modallar */
+        .modal { display: none; position: fixed; z-index: 3000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); }
+        .modal-content { background: #1a1a2e; width: 95%; max-width: 450px; margin: 5% auto; padding: 40px; border-radius: 25px; border: 1px solid #f1911e; position: relative; text-align: center; }
         
-        input, select, textarea { width: 100%; padding: 14px; margin: 10px 0; border-radius: 12px; border: 1px solid #333; background: #252545; color: white; outline: none; }
+        input, select, textarea { width: 100%; padding: 15px; margin: 10px 0; border-radius: 12px; border: 1px solid #333; background: #252545; color: white; outline: none; font-size: 1rem; }
         input:focus { border-color: #f1911e; }
         
         .close-btn { position: absolute; top: 15px; right: 20px; font-size: 24px; cursor: pointer; color: #fff; }
-        
-        .google-btn { 
-            background: white; color: #333; width: 100%; padding: 12px; border-radius: 12px; 
-            margin-top: 15px; border: none; cursor: pointer; font-weight: bold;
-            display: flex; align-items: center; justify-content: center; gap: 10px;
-        }
-        .google-btn img { width: 20px; }
-        
-        .toggle-link { color: #f1911e; cursor: pointer; font-size: 0.9rem; margin-top: 15px; display: block; }
 
-        /* Bo'limlar */
-        section { padding: 100px 20px; max-width: 1200px; margin: auto; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-        .card { background: rgba(255,255,255,0.05); padding: 40px; border-radius: 20px; border-left: 5px solid #f1911e; }
+        /* Google Tugmasi */
+        .google-login {
+            background: white; color: #333; display: flex; align-items: center; justify-content: center;
+            gap: 10px; padding: 12px; border-radius: 12px; margin-top: 20px; cursor: pointer; font-weight: bold; width: 100%;
+        }
+        .google-login img { width: 20px; }
+        
+        .modal-toggle { margin-top: 15px; display: block; color: #aaa; cursor: pointer; font-size: 0.9rem; }
+        .modal-toggle b { color: #f1911e; }
     </style>
 </head>
 <body>
@@ -80,45 +84,58 @@
         </div>
     </header>
 
+    <section>
+        <div class="grid">
+            <div class="card" data-aos="fade-right">
+                <h3><i class="fas fa-exclamation-triangle"></i> Muammo</h3>
+                <p>Qimmat uskunani bir marta ishlatish uchun sotib olish iqtisodiy jihatdan foydasiz.</p>
+            </div>
+            <div class="card" data-aos="fade-left">
+                <h3><i class="fas fa-check-circle"></i> Yechim</h3>
+                <p>Rent-and-Go orqali har qanday uskunani hamyonbop narxda ijaraga oling.</p>
+            </div>
+        </div>
+    </section>
+
     <div id="investorModal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('investorModal')">&times;</span>
-            <h2 style="color:#f1911e">Investorlik So'rovi</h2>
-            <form id="investForm">
-                <input type="number" id="investAmount" placeholder="Investitsiya miqdori ($)" required>
-                <textarea id="additionalNote" placeholder="Maqsadingizni yozing..." required></textarea>
-                <button type="button" class="btn btn-primary" style="width:100%" onclick="sendInvestorMail()">So'rovni yuborish</button>
-            </form>
+            <h2 style="color:#f1911e; margin-bottom: 15px;">Investorlik So'rovi</h2>
+            <input type="number" id="investAmount" placeholder="Investitsiya miqdori ($)" required>
+            <textarea id="additionalNote" placeholder="Sizning xabaringiz..." rows="4"></textarea>
+            <button class="btn btn-primary" style="width:100%" onclick="sendInvestorMail()">Sorovni yuborish</button>
         </div>
     </div>
 
     <div id="loginModal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('loginModal')">&times;</span>
-            <h2 style="color:#f1911e; margin-bottom: 20px;">Tizimga kirish</h2>
+            <h2 style="color:#f1911e">Login qilish</h2>
+            <p style="margin-bottom: 20px; opacity: 0.7;">Tizimga kirish uchun ma'lumotlarni kiriting</p>
             <input type="email" id="loginEmail" placeholder="Emailingizni kiriting" required>
             <input type="password" id="loginPass" placeholder="Parol kiriting" required>
-            <button class="btn btn-primary" style="width:100%" onclick="handleAuth('login')">Kirish</button>
+            <button class="btn btn-primary" style="width:100%" onclick="loginAction()">Kirish</button>
             
-            <button class="google-btn">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_Logo.svg" alt="Google">
+            <div class="google-login" onclick="googleLogin()">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_Logo.svg" alt="G">
                 Google orqali kirish
-            </button>
+            </div>
             
-            <span class="toggle-link" onclick="switchModal('loginModal', 'registerModal')">Hali ro'yxatdan o'tmaganmisiz? Ro'yxatdan o'tish</span>
+            <span class="modal-toggle" onclick="switchModal('loginModal', 'regModal')">Akkauntingiz yo'qmi? <b>Ro'yxatdan o'tish</b></span>
         </div>
     </div>
 
-    <div id="registerModal" class="modal">
+    <div id="regModal" class="modal">
         <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('registerModal')">&times;</span>
-            <h2 style="color:#f1911e; margin-bottom: 20px;">Ro'yxatdan o'tish</h2>
+            <span class="close-btn" onclick="closeModal('regModal')">&times;</span>
+            <h2 style="color:#f1911e">Ro'yxatdan o'tish</h2>
             <input type="text" id="regNick" placeholder="Nik yarating" required>
             <input type="email" id="regEmail" placeholder="Email kiriting" required>
             <input type="password" id="regPass" placeholder="Parol kiriting" required>
-            <input type="password" id="regConfirmPass" placeholder="Parolni tasdiqlang" required>
-            <button class="btn btn-primary" style="width:100%" onclick="handleAuth('register')">Ro'yxatdan o'tish</button>
-            <span class="toggle-link" onclick="switchModal('registerModal', 'loginModal')">Akkauntingiz bormi? Kirish</span>
+            <input type="password" id="regConfirm" placeholder="Parolni tasdiqlang" required>
+            <button class="btn btn-primary" style="width:100%" onclick="registerAction()">Register qilish</button>
+            
+            <span class="modal-toggle" onclick="switchModal('regModal', 'loginModal')">Akkauntingiz bormi? <b>Kirish</b></span>
         </div>
     </div>
 
@@ -133,13 +150,15 @@
             const nav = document.getElementById('navBar');
             if (user) {
                 nav.innerHTML = `
-                    <span style="font-weight:bold; align-self:center;">Salom, ${user}</span>
-                    <button class="auth-btn logout-btn" onclick="logout()">Chiqish</button>
+                    <div style="display:flex; align-items:center; gap:15px; background: rgba(0,0,0,0.5); padding: 5px 20px; border-radius: 30px;">
+                        <span style="font-weight:bold;">Salom, ${user}</span>
+                        <button class="auth-btn logout-btn" onclick="logout()">Chiqish</button>
+                    </div>
                 `;
             } else {
                 nav.innerHTML = `
                     <button class="auth-btn login-btn" onclick="openModal('loginModal')">Kirish</button>
-                    <button class="auth-btn reg-btn" onclick="openModal('registerModal')">Ro'yxatdan o'tish</button>
+                    <button class="auth-btn reg-btn" onclick="openModal('regModal')">Ro'yxatdan o'tish</button>
                 `;
             }
         }
@@ -152,27 +171,37 @@
             openModal(openId);
         }
 
-        function handleAuth(type) {
-            if(type === 'login') {
-                const email = document.getElementById('loginEmail').value;
-                const pass = document.getElementById('loginPass').value;
-                if(email && pass) {
-                    const nick = email.split('@')[0]; // Namuna uchun
-                    localStorage.setItem('loggedUser', nick);
-                    closeModal('loginModal');
-                }
-            } else {
-                const nick = document.getElementById('regNick').value;
-                const pass = document.getElementById('regPass').value;
-                const cPass = document.getElementById('regConfirmPass').value;
-                if(nick && pass === cPass) {
-                    localStorage.setItem('loggedUser', nick);
-                    closeModal('registerModal');
-                } else {
-                    alert("Parollar mos kelmadi!"); return;
-                }
-            }
+        // Login mantiqi
+        function loginAction() {
+            const email = document.getElementById('loginEmail').value;
+            const pass = document.getElementById('loginPass').value;
+            if(email && pass) {
+                const nick = email.split('@')[0]; // Emailning boshini nik sifatida olish
+                localStorage.setItem('loggedUser', nick);
+                closeModal('loginModal');
+                updateNav();
+                alert("Tizimga kirdingiz!");
+            } else { alert("Iltimos, ma'lumotlarni to'ldiring!"); }
+        }
+
+        // Register mantiqi
+        function registerAction() {
+            const nick = document.getElementById('regNick').value;
+            const pass = document.getElementById('regPass').value;
+            const confirm = document.getElementById('regConfirm').value;
+            if(nick && pass && pass === confirm) {
+                localStorage.setItem('loggedUser', nick);
+                closeModal('regModal');
+                updateNav();
+                alert("Ro'yxatdan o'tdingiz!");
+            } else { alert("Parollar mos emas yoki maydonlar bo'sh!"); }
+        }
+
+        function googleLogin() {
+            localStorage.setItem('loggedUser', 'Google_User');
+            closeModal('loginModal');
             updateNav();
+            alert("Google orqali kirdingiz!");
         }
 
         function logout() {
@@ -190,17 +219,17 @@
         }
 
         function sendInvestorMail() {
-            const user = localStorage.getItem('loggedUser');
             const amount = document.getElementById('investAmount').value;
             const note = document.getElementById('additionalNote').value;
+            const user = localStorage.getItem('loggedUser');
 
-            if(!amount || !note) { alert("Barcha maydonlarni to'ldiring!"); return; }
+            if(!amount || !note) { alert("Iltimos, barcha maydonlarni to'ldiring!"); return; }
 
-            const mailTo = "sunnatilloyoldoshev02@gmail.com";
-            const subject = "Yangi Investor So'rovi";
-            const body = `Yuboruvchi: ${user}%0AMiqdor: $${amount}%0AIzoh: ${note}`;
-            
-            window.location.href = `mailto:${mailTo}?subject=${subject}&body=${body}`;
+            const myEmail = "sunnatilloyoldoshev02@gmail.com";
+            const subject = "Yangi Investor So'rovi - " + user;
+            const body = `Salom Sunnatillo,%0A%0AMen Rent-and-Go loyihasiga investitsiya qilmoqchiman.%0A%0AInvestitsiya miqdori: $${amount}%0AXabar: ${note}%0A%0AHurmat bilan, ${user}`;
+
+            window.location.href = `mailto:${myEmail}?subject=${subject}&body=${body}`;
             closeModal('investorModal');
         }
     </script>
