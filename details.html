@@ -3,189 +3,178 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rent-and-Go | Mahsulotlar Katalogi</title>
+    <title>Rent-and-Go | Detallar va Katalog</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        :root { --primary: #4e4cfd; --secondary: #f1911e; --dark: #1a1a2e; }
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-        body { background-color: #f0f2f5; }
-
-        /* HEADER */
-        header { 
-            background: var(--primary); 
-            color: white; 
-            padding: 15px 30px; 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center;
-            position: sticky; top: 0; z-index: 100;
-        }
-
-        .auth-btns button {
-            padding: 8px 18px; border-radius: 20px; border: none; cursor: pointer; font-weight: bold; margin-left: 10px; transition: 0.3s;
-        }
-        .login-btn { background: white; color: var(--primary); }
-        .reg-btn { background: var(--secondary); color: white; }
-        .login-btn:hover { background: #eee; }
-
-        /* FILTER SECTION */
-        .filter-section { display: flex; justify-content: center; gap: 10px; padding: 20px; background: white; }
-        .filter-btn { padding: 8px 20px; border: 2px solid var(--primary); background: white; color: var(--primary); border-radius: 30px; cursor: pointer; font-weight: bold; }
-        .filter-btn.active { background: var(--primary); color: white; }
-
-        /* GRID */
-        .container { max-width: 1200px; margin: 20px auto; padding: 0 20px; }
-        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; }
-        .card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: 0.3s; }
-        .card:hover { transform: translateY(-5px); }
-        .card img { width: 100%; height: 180px; object-fit: cover; }
-        .card-body { padding: 15px; }
-        .price { color: var(--primary); font-weight: bold; font-size: 1.1rem; margin: 10px 0; }
-        .rent-btn { width: 100%; padding: 10px; background: var(--primary); color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; }
-
-        /* MODAL */
-        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px); }
-        .modal-content { background: white; width: 90%; max-width: 400px; margin: 100px auto; padding: 25px; border-radius: 15px; position: relative; }
-        .close { position: absolute; right: 20px; top: 15px; cursor: pointer; font-size: 24px; color: #888; }
-        input, select { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ddd; border-radius: 6px; }
+        :root { --primary: #4e4cfd; --secondary: #f1911e; --bg: #f8f9fc; }
+        body { margin: 0; font-family: 'Poppins', sans-serif; background: var(--bg); color: #333; }
         
-        .google-btn { 
-            background: white; border: 1px solid #ddd; display: flex; align-items: center; justify-content: center; 
-            cursor: pointer; width: 100%; padding: 10px; border-radius: 8px; margin-top: 15px; font-weight: bold;
+        /* Navigatsiya */
+        header { 
+            background: var(--primary); color: white; padding: 15px 40px; 
+            display: flex; justify-content: space-between; align-items: center;
+            position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
-        .google-btn img { width: 20px; margin-right: 10px; }
+        .header-left { display: flex; align-items: center; gap: 20px; }
+        .back-btn { color: white; text-decoration: none; font-weight: 600; display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.1); padding: 8px 15px; border-radius: 8px; transition: 0.3s; }
+        .back-btn:hover { background: rgba(255,255,255,0.2); }
+        
+        .user-section { display: flex; align-items: center; gap: 15px; }
+        .logout-btn { background: #ff4757; color: white; border: none; padding: 6px 12px; border-radius: 5px; cursor: pointer; font-size: 0.8rem; }
+
+        /* Kategoriyalar */
+        .categories { display: flex; justify-content: center; gap: 15px; padding: 25px; background: white; border-bottom: 1px solid #eee; }
+        .cat-btn { padding: 10px 20px; border-radius: 25px; border: 1px solid #ddd; background: white; cursor: pointer; font-weight: 500; transition: 0.3s; }
+        .cat-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
+
+        /* Grid */
+        .container { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 25px; }
+        .card { background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: 0.3s; }
+        .card:hover { transform: translateY(-8px); box-shadow: 0 12px 25px rgba(0,0,0,0.1); }
+        .img-box { width: 100%; height: 180px; background: #f0f0f0; }
+        .img-box img { width: 100%; height: 100%; object-fit: cover; }
+        .card-info { padding: 15px; }
+        .card-info h4 { margin: 0 0 10px; font-size: 1.1rem; }
+        .price { color: var(--primary); font-weight: bold; display: block; margin-bottom: 15px; }
+        .band-btn { width: 100%; padding: 10px; border: none; border-radius: 8px; background: var(--primary); color: white; cursor: pointer; font-weight: bold; }
+
+        /* Modal */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2000; justify-content: center; align-items: center; }
+        .modal-content { background: white; width: 90%; max-width: 500px; padding: 30px; border-radius: 20px; text-align: center; position: relative; }
+        .close { position: absolute; top: 15px; right: 20px; font-size: 25px; cursor: pointer; }
+        .modal-img { width: 100%; height: 200px; object-fit: cover; border-radius: 10px; margin-bottom: 15px; }
     </style>
 </head>
 <body>
 
 <header>
-    <div class="logo"><h2 style="cursor:pointer" onclick="location.href='index.html'">Rent-and-Go</h2></div>
-    <div class="auth-btns" id="authBox">
-        <button class="login-btn" onclick="openM('loginModal')">Kirish</button>
-        <button class="reg-btn" onclick="openM('loginModal')">Ro'yxatdan o'tish</button>
+    <div class="header-left">
+        <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Orqaga</a>
+        <h2 style="margin:0;">Rent-and-Go</h2>
     </div>
+    <div class="user-section" id="authSection">
+        </div>
 </header>
 
-<div class="filter-section">
-    <button class="filter-btn active" onclick="render('all')">Hammasi</button>
-    <button class="filter-btn" onclick="render('foto')">Foto & Video</button>
-    <button class="filter-btn" onclick="render('it')">IT & Tech</button>
-    <button class="filter-btn" onclick="render('qurilish')">Qurilish</button>
+<div class="categories">
+    <button class="cat-btn active" onclick="filterItems('Hammasi')">Hammasi</button>
+    <button class="cat-btn" onclick="filterItems('Foto')">Foto & Video (10)</button>
+    <button class="cat-btn" onclick="filterItems('IT')">IT & Tech (10)</button>
+    <button class="cat-btn" onclick="filterItems('Qurilish')">Qurilish (10)</button>
 </div>
 
 <div class="container">
-    <div class="product-grid" id="grid"></div>
-</div>
-
-<div id="loginModal" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="closeM('loginModal')">&times;</span>
-        <h3 style="text-align:center">Xush kelibsiz!</h3>
-        <input type="email" placeholder="Email">
-        <input type="password" placeholder="Parol">
-        <button class="rent-btn" onclick="loginAction('Foydalanuvchi')">Tizimga kirish</button>
-        <div class="google-btn" onclick="loginAction('Google User')">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"> Google orqali kirish
+    <div class="grid" id="productGrid">
         </div>
-    </div>
 </div>
 
-<div id="bookModal" class="modal">
+<div id="itemModal" class="modal">
     <div class="modal-content">
-        <span class="close" onclick="closeM('bookModal')">&times;</span>
-        <h3 id="pTitle" style="color:var(--primary); margin-bottom:15px;">Mahsulot nomi</h3>
-        
-        <label>Rangni tanlang:</label>
-        <select id="pColor">
-            <option>Qora (Standart)</option>
-            <option>Kumushrang</option>
-            <option>Oq</option>
-        </select>
-
-        <label>To'plam turi:</label>
-        <select id="pType">
-            <option>Faqat uskuna</option>
-            <option>To'liq to'plam (aksessuarlar bilan)</option>
-        </select>
-
-        <label>Ijara muddati (kun):</label>
-        <input type="number" id="pDays" value="1" min="1">
-
-        <button class="rent-btn" style="background:var(--secondary); margin-top:15px;" onclick="confirmB()">Band qilishni tasdiqlash</button>
+        <span class="close" onclick="closeModal()">&times;</span>
+        <img id="modalImg" src="" class="modal-img">
+        <h2 id="modalTitle"></h2>
+        <p id="modalDesc"></p>
+        <div style="margin: 15px 0;">
+            <label>Kunni tanlang: </label>
+            <input type="number" id="days" value="1" min="1" oninput="updateTotal()" style="width: 50px; padding: 5px;">
+        </div>
+        <h3 id="modalTotal" style="color: var(--secondary);"></h3>
+        <button class="band-btn" onclick="finalBook()" style="background: var(--secondary);">Tasdiqlash</button>
     </div>
 </div>
 
 <script>
-    let isLogged = false;
+    const items = [
+        // Foto & Video
+        { name: "Canon EOS R5", price: 450000, cat: "Foto", img: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=400" },
+        { name: "Sony A7 IV", price: 400000, cat: "Foto", img: "https://images.unsplash.com/photo-1516724562728-afc824a36e84?w=400" },
+        { name: "DJI Mavic 3 Pro", price: 600000, cat: "Foto", img: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=400" },
+        { name: "GoPro Hero 12", price: 150000, cat: "Foto", img: "https://images.unsplash.com/photo-1526170315873-3a921219a730?w=400" },
+        { name: "Insta360 X3", price: 120000, cat: "Foto", img: "https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=400" },
+        // IT & Tech
+        { name: "MacBook Pro M3 Max", price: 550000, cat: "IT", img: "https://images.unsplash.com/photo-1517336712461-481bf771df49?w=400" },
+        { name: "ASUS ROG Strix G16", price: 350000, cat: "IT", img: "https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=400" },
+        { name: "iPad Pro M2", price: 200000, cat: "IT", img: "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=400" },
+        { name: "Sony WH-1000XM5", price: 80000, cat: "IT", img: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400" },
+        // Qurilish
+        { name: "Makita HR2470", price: 70000, cat: "Qurilish", img: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=400" },
+        { name: "Bosch Professional", price: 50000, cat: "Qurilish", img: "https://images.unsplash.com/photo-1572981779307-38b8cabb2407?w=400" }
+        // Jami 20+ ta mahsulotni shu yerga qo'shish mumkin
+    ];
 
-    // MAHSULOTLAR (Jami 60 ta ma'lumot joyi)
-    const data = {
-        foto: [
-            { name: "Canon EOS R5", price: "450,000", img: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=500" },
-            { name: "Sony A7 IV", price: "400,000", img: "https://images.unsplash.com/photo-1510127034890-ba27508e9f1c?w=500" },
-            { name: "DJI Mavic 3 Pro", price: "600,000", img: "https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=500" },
-            // ... Bu yerda yana 17 ta foto qo'shiladi
-        ],
-        it: [
-            { name: "MacBook Pro M3 Max", price: "550,000", img: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=500" },
-            { name: "ASUS ROG Strix G16", price: "350,000", img: "https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?w=500" },
-            // ... Bu yerda yana 18 ta IT mahsulot qo'shiladi
-        ],
-        qurilish: [
-            { name: "Makita HR2470", price: "70,000", img: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=500" },
-            { name: "Bosch Professional", price: "50,000", img: "https://images.unsplash.com/photo-1572981779307-38b8cabb2407?w=500" },
-            // ... Bu yerda yana 18 ta uskuna qo'shiladi
-        ]
-    };
+    let selectedItem = null;
 
-    function render(cat) {
-        const grid = document.getElementById('grid');
+    function renderItems(filter = 'Hammasi') {
+        const grid = document.getElementById('productGrid');
         grid.innerHTML = '';
-        let list = (cat === 'all') ? [...data.foto, ...data.it, ...data.qurilish] : data[cat];
+        const filtered = filter === 'Hammasi' ? items : items.filter(i => i.cat === filter);
         
-        list.forEach(item => {
+        filtered.forEach(item => {
             grid.innerHTML += `
                 <div class="card">
-                    <img src="${item.img}">
-                    <div class="card-body">
+                    <div class="img-box"><img src="${item.img}"></div>
+                    <div class="card-info">
                         <h4>${item.name}</h4>
-                        <p class="price">${item.price} so'm / kun</p>
-                        <button class="rent-btn" onclick="startBooking('${item.name}')">Band qilish</button>
+                        <span class="price">${item.price.toLocaleString()} so'm / kun</span>
+                        <button class="band-btn" onclick="openModal('${item.name}', ${item.price}, '${item.img}')">Band qilish</button>
                     </div>
                 </div>
             `;
         });
     }
 
-    function openM(id) { document.getElementById(id).style.display = 'block'; }
-    function closeM(id) { document.getElementById(id).style.display = 'none'; }
-
-    function loginAction(user) {
-        isLogged = true;
-        document.getElementById('authBox').innerHTML = `<span><i class="fas fa-user"></i> Salom, <b>${user}</b></span>`;
-        closeM('loginModal');
-        alert("Tizimga muvaffaqiyatli kirdingiz!");
+    function checkLogin() {
+        const authSection = document.getElementById('authSection');
+        const user = localStorage.getItem('loggedUser') || "Sunnatillo"; // Default ismingiz
+        
+        authSection.innerHTML = `
+            <span style="font-weight:bold;">Salom, ${user}</span>
+            <button class="logout-btn" onclick="logout()">Chiqish</button>
+        `;
     }
 
-    function startBooking(name) {
-        if(!isLogged) {
-            alert("Iltimos, avval tizimga kiring!");
-            openM('loginModal');
-        } else {
-            document.getElementById('pTitle').innerText = name;
-            openM('bookModal');
+    function logout() {
+        if(confirm("Akkauntdan chiqmoqchimisiz?")) {
+            localStorage.removeItem('loggedUser');
+            window.location.href = "index.html"; // Chiqishda asosiy sahifaga
         }
     }
 
-    function confirmB() {
-        const d = document.getElementById('pDays').value;
-        const c = document.getElementById('pColor').value;
-        alert(`Tasdiqlandi! ${d} kunga ${c} rangli uskuna band qilindi.`);
-        closeM('bookModal');
+    function openModal(name, price, img) {
+        selectedItem = { name, price };
+        document.getElementById('modalTitle').innerText = name;
+        document.getElementById('modalImg').src = img;
+        document.getElementById('modalDesc').innerText = "Eng sifatli mahsulotni ijaraga oling.";
+        document.getElementById('itemModal').style.display = 'flex';
+        updateTotal();
     }
 
-    render('all');
-</script>
+    function closeModal() { document.getElementById('itemModal').style.display = 'none'; }
 
+    function updateTotal() {
+        const days = document.getElementById('days').value;
+        const total = selectedItem.price * days;
+        document.getElementById('modalTotal').innerText = total.toLocaleString() + " so'm";
+    }
+
+    function finalBook() {
+        const days = document.getElementById('days').value;
+        alert(`${selectedItem.name} ${days} kunga muvaffaqiyatli band qilindi!`);
+        closeModal();
+    }
+
+    function filterItems(cat) {
+        document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+        event.target.classList.add('active');
+        renderItems(cat);
+    }
+
+    // Ishga tushirish
+    window.onload = () => {
+        checkLogin();
+        renderItems();
+    };
+</script>
 </body>
 </html>
