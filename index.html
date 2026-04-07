@@ -3,103 +3,212 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rent-and-Go | Kelajak Platformasi</title>
+    <title>Rent-and-Go | Professional Platform</title>
+    
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
     <style>
-        :root { --primary: #4e4cfd; --secondary: #f1911e; }
-        body { margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #0b0b1a; color: white; }
-        
-        /* Navigatsiya va Header */
-        header { 
-            padding: 20px 50px; display: flex; justify-content: space-between; align-items: center; 
-            background: rgba(0,0,0,0.5); position: fixed; width: 100%; box-sizing: border-box; z-index: 1000;
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+        body { font-family: 'Poppins', sans-serif; background: #0f0c29; color: #fff; overflow-x: hidden; }
+
+        /* Navigatsiya */
+        nav {
+            position: fixed; top: 0; width: 100%; padding: 20px 50px;
+            display: flex; justify-content: flex-end; gap: 15px; z-index: 2000;
         }
-        .auth-buttons { display: flex; gap: 15px; }
-        .auth-btn { padding: 10px 25px; border-radius: 25px; border: none; cursor: pointer; font-weight: bold; transition: 0.3s; }
-        .login-btn { background: white; color: var(--primary); }
-        .reg-btn { background: var(--secondary); color: white; }
+        .auth-btn { padding: 8px 20px; border-radius: 20px; border: none; cursor: pointer; font-weight: bold; transition: 0.3s; }
+        .login-btn { background: white; color: #0f0c29; }
+        .reg-btn { background: #f1911e; color: white; }
 
-        /* Hero Bo'limi */
-        .hero { 
-            height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1600');
-            background-size: cover; background-position: center; text-align: center;
+        /* Asosiy Banner */
+        header {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                        url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=2070') no-repeat center center/cover;
         }
-        .hero h1 { font-size: 5rem; color: var(--secondary); margin: 0; letter-spacing: 5px; }
-        .hero p { font-size: 1.5rem; margin: 10px 0; opacity: 0.9; }
-        .hero h3 { font-size: 1.2rem; margin-bottom: 30px; letter-spacing: 2px; }
 
-        /* Tugmalar */
-        .cta-group { display: flex; gap: 20px; }
-        .cta-btn { padding: 15px 40px; border-radius: 30px; text-decoration: none; font-weight: bold; transition: 0.3s; cursor: pointer; }
-        .btn-fill { background: var(--secondary); color: white; border: none; }
-        .btn-outline { border: 2px solid white; color: white; background: transparent; }
-        .cta-btn:hover { transform: scale(1.05); }
+        h1 { font-size: 4rem; color: #f1911e; letter-spacing: 5px; }
+        .btn-group { margin-top: 30px; display: flex; gap: 20px; justify-content: center; }
+        .btn { padding: 15px 35px; border-radius: 50px; text-decoration: none; font-weight: bold; transition: 0.4s; cursor: pointer; border: none; }
+        .btn-primary { background: #f1911e; color: white; }
+        .btn-outline { border: 2px solid #fff; color: #fff; background: transparent; }
+        .btn:hover { transform: scale(1.1); box-shadow: 0 0 20px #f1911e; }
 
-        /* Muammo va Yechim */
-        .info-grid { display: flex; justify-content: center; gap: 30px; padding: 50px; background: #0b0b1a; }
-        .info-card { background: #1a1a2e; padding: 30px; border-radius: 15px; width: 450px; }
-        .info-card h4 { color: var(--secondary); margin-top: 0; font-size: 1.4rem; }
-        .info-card p { line-height: 1.6; opacity: 0.8; }
+        /* Bo'limlar */
+        section { padding: 100px 20px; max-width: 1200px; margin: auto; }
+        h2.section-title { text-align: center; font-size: 2.5rem; margin-bottom: 50px; color: #f1911e; }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .card { background: rgba(255,255,255,0.05); padding: 40px; border-radius: 20px; border-left: 5px solid #f1911e; }
+
+        /* Jamoa bo'limi */
+        .team-grid { display: flex; justify-content: center; flex-wrap: wrap; gap: 40px; margin-top: 50px; }
+        .team-card { text-align: center; width: 250px; }
+        .team-img { width: 150px; height: 150px; border-radius: 50%; border: 3px solid #f1911e; object-fit: cover; margin-bottom: 15px; }
+        .team-card h3 { color: #f1911e; }
+        .team-card p { opacity: 0.8; font-size: 0.9rem; }
+
+        /* Modallar */
+        .modal { display: none; position: fixed; z-index: 3000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); }
+        .modal-content { background: #1a1a2e; width: 95%; max-width: 450px; margin: 8% auto; padding: 30px; border-radius: 20px; border: 1px solid #f1911e; position: relative; }
+        input, select, textarea { width: 100%; padding: 12px; margin: 10px 0; border-radius: 10px; border: none; background: #252545; color: white; }
+        .close-btn { position: absolute; top: 15px; right: 20px; font-size: 24px; cursor: pointer; color: #666; }
     </style>
 </head>
 <body>
 
-<header>
-    <div class="logo"><h2>Rent-and-Go</h2></div>
-    <div class="auth-buttons" id="headerAuth">
-        <button class="auth-btn login-btn" onclick="goToCatalog()">Kirish</button>
-        <button class="auth-btn reg-btn" onclick="goToCatalog()">Ro'yxatdan o'tish</button>
-    </div>
-</header>
+    <nav id="navBar">
+        <button class="auth-btn login-btn" onclick="openAuthModal()">Kirish</button>
+        <button class="auth-btn reg-btn" onclick="openAuthModal()">Ro'yxatdan o'tish</button>
+    </nav>
 
-<div class="hero">
-    <h1>RENT-AND-GO</h1>
-    <p>Professional ijara platformasi</p>
-    <h3>KERAKLI NARSA — KERAKLI VAQTDA</h3>
-    
-    <div class="cta-group">
-        <button class="cta-btn btn-fill" onclick="handleInvestor()">INVESTOR BO'LING</button>
-        <a href="details.html" class="cta-btn btn-outline">BATAFSIL</a>
-    </div>
-</div>
+    <header>
+        <div data-aos="zoom-out" data-aos-duration="1500">
+            <h1>RENT-AND-GO</h1>
+            <p style="font-size: 1.5rem;">Kerakli narsa – kerakli vaqtda</p>
+            <div class="btn-group">
+                <button onclick="checkInvestor()" class="btn btn-primary">Investor bo'ling</button>
+                <a href="details.html" class="btn btn-outline">Batafsil</a>
+            </div>
+        </div>
+    </header>
 
-<div class="info-grid">
-    <div class="info-card">
-        <h4>MUAMMO</h4>
-        <p>Odamlar kam ishlatadigan qimmat uskunani bir marta ishlatish uchun sotib olish iqtisodiy jihatdan foydasiz va resurslarni isrof qiladi.</p>
-    </div>
-    <div class="info-card">
-        <h4>YECHIM</h4>
-        <p>Rent-and-Go orqali har qanday uskunani hamyonbop narxda ijaraga oling yoki o'z uskunangizni ijaraga berib daromad qiling.</p>
-    </div>
-</div>
+    <section>
+        <div class="grid">
+            <div class="card" data-aos="fade-right">
+                <h3><i class="fas fa-exclamation-triangle"></i> Muammo</h3>
+                <p>Qimmat uskunani bir marta ishlatish uchun sotib olish iqtisodiy jihatdan foydasiz va joy egallaydi.</p>
+            </div>
+            <div class="card" data-aos="fade-left">
+                <h3><i class="fas fa-check-circle"></i> Yechim</h3>
+                <p>Rent-and-Go orqali har qanday uskunani hamyonbop narxda ijaraga oling yoki o'z uskunangizni ijaraga berib daromad qiling.</p>
+            </div>
+        </div>
+    </section>
 
-<script>
-    function goToCatalog() {
-        window.location.href = "details.html";
-    }
+    <section id="team">
+        <h2 class="section-title" data-aos="fade-up">Loyiha Mualliflari</h2>
+        <div class="team-grid">
+            <div class="team-card" data-aos="flip-left" data-aos-delay="100">
+                <img src="https://via.placeholder.com/150" class="team-img" alt="Sunnatillo">
+                <h3>Sunnatillo Yo'ldoshev</h3>
+                <p>Loyiha Asoschisi & Visionary</p>
+            </div>
+            <div class="team-card" data-aos="flip-left" data-aos-delay="300">
+                <img src="https://via.placeholder.com/150" class="team-img" alt="Dasturchi">
+                <h3>Shuhrat Bahromjanov</h3>
+                <p>Lead Developer</p>
+            </div>
+        </div>
+    </section>
 
-    function handleInvestor() {
-        const user = localStorage.getItem('userName');
-        if (!user) {
-            alert("Investor bo'lish uchun avval Katalog sahifasida tizimga kiring!");
-            window.location.href = "details.html";
-        } else {
-            alert("Salom " + user + "! Siz bilan investorlik bo'yicha bog'lanamiz.");
+    <div id="authModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('authModal')">&times;</span>
+            <h2 style="color:#f1911e; margin-bottom: 20px;">Tizimga kirish</h2>
+            <input type="text" id="userNameInput" placeholder="Ismingizni kiriting" required>
+            <button class="btn btn-primary" style="width:100%" onclick="loginUser()">Kirish</button>
+        </div>
+    </div>
+
+    <div id="investorModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('investorModal')">&times;</span>
+            <h2 style="color:#f1911e">Investorlik So'rovi</h2>
+            <p id="welcomeUser" style="margin-bottom: 15px; opacity: 0.8;"></p>
+            <form id="investForm">
+                <input type="number" id="investAmount" placeholder="Investitsiya miqdori ($)" required>
+                
+                <label style="font-size: 0.8rem; opacity: 0.7;">Yordam berish maqsadi:</label>
+                <select id="investReason">
+                    <option value="share">Kompaniyada ulush olish (Aksiya)</option>
+                    <option value="scaling">Loyiha masshtabini kengaytirish</option>
+                    <option value="tech">Texnik bazani kuchaytirish</option>
+                    <option value="marketing">Marketing va reklamani oshirish</option>
+                    <option value="social">Ijtimoiy startapni qo'llab-quvvatlash</option>
+                </select>
+                
+                <textarea id="additionalNote" placeholder="Qo'shimcha izoh (ixtiyoriy)"></textarea>
+                
+                <button type="button" class="btn btn-primary" style="width:100%" onclick="sendInvestorMail()">So'rovni yuborish</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 1000, once: false });
+
+        // Foydalanuvchi holatini tekshirish
+        window.onload = function() {
+            updateNav();
+        };
+
+        function updateNav() {
+            const user = localStorage.getItem('loggedUser');
+            const nav = document.getElementById('navBar');
+            if (user) {
+                nav.innerHTML = `
+                    <span style="font-weight:bold; margin-right:15px; align-self:center;">Salom, ${user}</span>
+                    <button class="auth-btn login-btn" onclick="logout()">Chiqish</button>
+                `;
+            } else {
+                nav.innerHTML = `
+                    <button class="auth-btn login-btn" onclick="openModal('authModal')">Kirish</button>
+                    <button class="auth-btn reg-btn" onclick="openModal('authModal')">Ro'yxatdan o'tish</button>
+                `;
+            }
         }
-    }
 
-    // Sahifa yuklanganda login holatini tekshirish
-    window.onload = function() {
-        const user = localStorage.getItem('userName');
-        if (user) {
-            document.getElementById('headerAuth').innerHTML = `
-                <span style="font-weight:bold; margin-right:10px">Salom, ${user}</span>
-                <button class="auth-btn login-btn" onclick="localStorage.clear(); location.reload();">Chiqish</button>
-            `;
+        function openModal(id) { document.getElementById(id).style.display = 'block'; }
+        function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+
+        function loginUser() {
+            const name = document.getElementById('userNameInput').value;
+            if(name) {
+                localStorage.setItem('loggedUser', name);
+                closeModal('authModal');
+                updateNav();
+                alert("Xush kelibsiz, " + name + "!");
+            }
         }
-    }
-</script>
 
+        function logout() {
+            localStorage.removeItem('loggedUser');
+            updateNav();
+        }
+
+        function checkInvestor() {
+            const user = localStorage.getItem('loggedUser');
+            if (!user) {
+                alert("Investor bo'lish uchun iltimos avval tizimga kiring!");
+                openModal('authModal');
+            } else {
+                document.getElementById('welcomeUser').innerText = "Mijoz: " + user;
+                openModal('investorModal');
+            }
+        }
+
+        function sendInvestorMail() {
+            const user = localStorage.getItem('loggedUser');
+            const amount = document.getElementById('investAmount').value;
+            const reason = document.getElementById('investReason').value;
+            const note = document.getElementById('additionalNote').value;
+
+            if(!amount) { alert("Iltimos, summani yozing!"); return; }
+
+            const mailTo = "sunnatilloyoldoshev02@gmail.com";
+            const subject = "Yangi Investor So'rovi";
+            const body = `Mijoz: ${user}%0AMiqdor: $${amount}%0AMaqsad: ${reason}%0AIzoh: ${note}`;
+            
+            window.location.href = `mailto:${mailTo}?subject=${subject}&body=${body}`;
+            closeModal('investorModal');
+        }
+    </script>
 </body>
 </html>
